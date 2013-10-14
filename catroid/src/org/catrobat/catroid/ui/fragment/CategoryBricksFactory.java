@@ -93,6 +93,8 @@ import org.catrobat.catroid.content.bricks.RaspiPwmBrick;
 import org.catrobat.catroid.content.bricks.RaspiSendDigitalValueBrick;
 import org.catrobat.catroid.content.bricks.RepeatBrick;
 import org.catrobat.catroid.content.bricks.ReplaceItemInUserListBrick;
+import org.catrobat.catroid.content.bricks.SayBrick;
+import org.catrobat.catroid.content.bricks.SayForBrick;
 import org.catrobat.catroid.content.bricks.ScriptBrick;
 import org.catrobat.catroid.content.bricks.SetBrightnessBrick;
 import org.catrobat.catroid.content.bricks.SetLookBrick;
@@ -106,6 +108,8 @@ import org.catrobat.catroid.content.bricks.ShowBrick;
 import org.catrobat.catroid.content.bricks.ShowTextBrick;
 import org.catrobat.catroid.content.bricks.SpeakBrick;
 import org.catrobat.catroid.content.bricks.StopAllSoundsBrick;
+import org.catrobat.catroid.content.bricks.ThinkBrick;
+import org.catrobat.catroid.content.bricks.ThinkForBrick;
 import org.catrobat.catroid.content.bricks.TurnLeftBrick;
 import org.catrobat.catroid.content.bricks.TurnRightBrick;
 import org.catrobat.catroid.content.bricks.UserBrick;
@@ -328,6 +332,10 @@ public class CategoryBricksFactory {
 		if (BuildConfig.FEATURE_FLASH_BRICK_ENABLED) {
 			looksBrickList.add(new FlashBrick());
 		}
+		looksBrickList.add(new SayForBrick(BrickValues.SAY, BrickValues.FOR));
+		looksBrickList.add(new SayBrick(BrickValues.SAY));
+		looksBrickList.add(new ThinkForBrick(BrickValues.THINK, BrickValues.FOR));
+		looksBrickList.add(new ThinkBrick(BrickValues.THINK));
 
 		if (SettingsActivity.isPhiroSharedPreferenceEnabled(context)) {
 			looksBrickList.add(new PhiroRGBLightBrick(PhiroRGBLightBrick.Eye.BOTH, BrickValues.PHIRO_VALUE_RED, BrickValues.PHIRO_VALUE_GREEN, BrickValues.PHIRO_VALUE_BLUE));

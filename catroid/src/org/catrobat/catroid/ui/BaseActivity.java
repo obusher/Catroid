@@ -35,11 +35,18 @@ import android.widget.AdapterView;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
+import org.catrobat.catroid.content.Project;
+import org.catrobat.catroid.content.Script;
+import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.content.bricks.Brick;
+import org.catrobat.catroid.content.bricks.BubbleBrick;
 import org.catrobat.catroid.ui.controller.BackPackListManager;
 import org.catrobat.catroid.ui.dialogs.AboutDialogFragment;
 import org.catrobat.catroid.ui.dialogs.TermsOfUseDialogFragment;
 import org.catrobat.catroid.utils.ToastUtil;
 import org.catrobat.catroid.utils.Utils;
+
+import java.util.ArrayList;
 
 public class BaseActivity extends Activity {
 
@@ -170,5 +177,24 @@ public class BaseActivity extends Activity {
 		logout.setVisible(Utils.isUserLoggedIn(this));
 		login.setVisible(!Utils.isUserLoggedIn(this));
 		return true;
+	}
+
+	protected void setContextInCertainBricks() {
+		Project currentProject = ProjectManager.getInstance().getCurrentProject();
+
+		if (currentProject != null) {
+			ArrayList<Sprite> spriteList = (ArrayList<Sprite>) currentProject.getSpriteList();
+
+			for (Sprite sprite : spriteList) {
+				for (int index = 0; index < sprite.getNumberOfScripts(); index++) {
+					Script script = sprite.getScript(index);
+					for (Brick brick : script.getBrickList()) {
+						if (brick instanceof BubbleBrick) {
+							((BubbleBrick) brick).setContext(getApplicationContext());
+						}
+					}
+				}
+			}
+		}
 	}
 }

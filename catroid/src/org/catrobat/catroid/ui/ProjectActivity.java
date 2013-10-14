@@ -88,6 +88,8 @@ public class ProjectActivity extends BaseActivity {
 		if (getIntent() != null && getIntent().hasExtra(Constants.PROJECT_OPENED_FROM_PROJECTS_LIST)) {
 			setReturnToProjectsList(true);
 		}
+
+		setContextInCertainBricks();
 	}
 
 	@Override

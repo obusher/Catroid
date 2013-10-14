@@ -530,6 +530,9 @@
     <string name="brick_flash_on">on</string>
     <string name="brick_flash_off">off</string>
     <string name="brick_vibration">Vibrate for</string>
+    <string name="brick_say">Say</string>
+    <string name="for_label">for</string>
+    <string name="brick_think">Think</string>
     <!--  -->
 
 

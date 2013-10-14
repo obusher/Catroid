@@ -90,7 +90,6 @@ public class LookData implements Serializable, Cloneable {
 	@Override
 	public LookData clone() {
 		LookData cloneLookData = new LookData();
-
 		cloneLookData.name = this.name;
 		cloneLookData.fileName = this.fileName;
 		String filePath = getPathToImageDirectory() + "/" + fileName;

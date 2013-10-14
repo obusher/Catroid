@@ -42,6 +42,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -72,6 +73,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -146,6 +148,7 @@ public class StageListener implements ApplicationListener {
 	public int maximizeViewPortWidth = 0;
 
 	public boolean axesOn = false;
+	public static Map<Look, Pixmap> bubble = new HashMap<Look, Pixmap>();
 
 	private byte[] thumbnail;
 	private LookData whiteBackground = null;
@@ -407,6 +410,10 @@ public class StageListener implements ApplicationListener {
 			drawAxes();
 		}
 
+		if (bubble.size() > 0 && !finished) {
+			drawBubbleOnStage();
+		}
+
 		if (DEBUG) {
 			fpsLogger.log();
 		}
@@ -635,6 +642,128 @@ public class StageListener implements ApplicationListener {
 		viewPort.update(ScreenValues.SCREEN_WIDTH, ScreenValues.SCREEN_HEIGHT, false);
 		camera.position.set(0, 0, 0);
 		camera.update();
+	}
+
+	public void drawBubbleOnStage() {
+
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+
+		Iterator<Look> iterator = bubble.keySet().iterator();
+
+		while (iterator.hasNext()) {
+			final Look currentLook = iterator.next();
+			final Texture bubbleTexture = new Texture(bubble.get(currentLook));
+
+			final float lookScaleX = currentLook.getScaleX();
+			final float lookScaleY = currentLook.getScaleY();
+			float scaleOffsetX = 1;
+			float scaleOffsetY = 1;
+
+			if (lookScaleX != 1) {
+				scaleOffsetX = lookScaleX > 1 ? (lookScaleX - 1) * 2 + 1 : (1 - lookScaleX) / 2;
+			}
+
+			if (lookScaleY != 1) {
+				scaleOffsetY = lookScaleY > 1 ? (lookScaleY - 1) * 2 + 1 : (1 - lookScaleY) / 2;
+			}
+
+			final float zeroX = -(currentLook.getImageWidth() / 2);
+			final float zeroY = -(currentLook.getImageHeight() / 2);
+
+			final float rightTopX = zeroX + currentLook.getWidth() * (scaleOffsetX + lookScaleX);
+			final float rightTopY = zeroY + currentLook.getHeight() * (scaleOffsetY + lookScaleY);
+			final float rightBottomX = zeroX + currentLook.getWidth() * (scaleOffsetX + lookScaleX);
+			final float rightBottomY = zeroY + currentLook.getHeight() * (scaleOffsetY);
+			final float leftBottomX = zeroX + currentLook.getWidth() * (scaleOffsetX);
+			final float leftBottomY = zeroY + currentLook.getHeight() * (scaleOffsetY);
+			final float leftTopX = zeroX + currentLook.getWidth() * (scaleOffsetX);
+			final float leftTopY = zeroY + currentLook.getHeight() * (scaleOffsetY + lookScaleY);
+
+			float rotatedRightTopX = rightTopX;
+			float rotatedRightTopY = rightTopY;
+			float rotatedRightBottomX = rightBottomX;
+			float rotatedRightBottomY = rightBottomY;
+			float rotatedLeftBottomX = leftBottomX;
+			float rotatedLeftBottomY = leftBottomY;
+			float rotatedLeftTopX = leftTopX;
+			float rotatedLeftTopY = leftTopY;
+
+			float bubbleX = rightTopX;
+			float bubbleY = rightTopY;
+
+			final float lookRotation = currentLook.getRotation();
+
+			//			if (!(lookRotation == this.oldRotation)) {
+			//				Log.i("info", "ImageWidth: " + currentLook.getImageWidth());
+			//				Log.i("info", "ImageHeight: " + currentLook.getImageHeight());
+			//				Log.i("info", "ImageX: " + currentLook.getImageX());
+			//				Log.i("info", "ImageY: " + currentLook.getImageY());
+			//				Log.i("info", "X: " + currentLook.getX());
+			//				Log.i("info", "Y: " + currentLook.getY());
+			//				Log.i("info", "lookScaleY: " + lookScaleY);
+			//				Log.i("info", "lookScaleX: " + lookScaleX);
+			//				Log.i("info", "lookRotation: " + lookRotation);
+			//				Log.i("info", "rightTopX:" + rightTopX + " rightTopY:" + rightTopY + " rightBottomX:" + rightBottomX
+			//						+ " rightBottomY:" + rightBottomY + " leftBottomX:" + leftBottomX + " leftBottomY:"
+			//						+ leftBottomY + " leftTopX:" + leftTopX + " leftTopY:" + leftTopY);
+			//
+			//				this.oldRotation = lookRotation;
+			//			}
+
+			if (lookRotation != 0) {
+				final float cos = MathUtils.cosDeg(lookRotation);
+				final float sin = MathUtils.sinDeg(lookRotation);
+
+				rotatedRightTopX = cos * rightTopX - sin * rightTopY;
+				rotatedRightTopY = sin * rightTopX + cos * rightTopY;
+				rotatedRightBottomX = cos * rightBottomX - sin * rightBottomY;
+				rotatedRightBottomY = sin * rightBottomX + cos * rightBottomY;
+				rotatedLeftBottomX = cos * leftBottomX - sin * leftBottomY;
+				rotatedLeftBottomY = sin * leftBottomX + cos * leftBottomY;
+				rotatedLeftTopX = cos * leftTopX - sin * leftTopY;
+				rotatedLeftTopY = sin * leftTopX + cos * leftTopY;
+
+				if (lookRotation > 0 && lookRotation <= 90) {
+					bubbleX = rotatedRightTopX - zeroX + currentLook.getX();
+					bubbleY = rotatedRightTopY - zeroY + currentLook.getY();
+				}
+				if (lookRotation > 90 && lookRotation <= 180) {
+					bubbleX = rotatedRightBottomX - zeroX + currentLook.getX();
+					bubbleY = rotatedRightBottomY - zeroY + currentLook.getY();
+				}
+				if (lookRotation > 180 && lookRotation <= 270) {
+					bubbleX = rotatedLeftBottomX - zeroX + currentLook.getX();
+					bubbleY = rotatedLeftBottomY - zeroY + currentLook.getY();
+				}
+				if (lookRotation > 270 && lookRotation <= 360) {
+					bubbleX = rotatedLeftTopX - zeroX + currentLook.getX();
+					bubbleY = rotatedLeftTopY - zeroY + currentLook.getY();
+				}
+			}
+			//TODO: Bubble outside of screen
+
+			final int bubbleHeight = bubbleTexture.getHeight();
+			final int bubbleWidth = bubbleTexture.getWidth();
+
+			bubbleX = (bubbleX + bubbleWidth) > virtualWidthHalf ? virtualWidthHalf - bubbleWidth : bubbleX;
+			bubbleY = (bubbleY + bubbleHeight) > virtualHeightHalf ? virtualHeightHalf - bubbleHeight : bubbleY;
+			bubbleX = bubbleX < -virtualWidthHalf ? -virtualWidthHalf : bubbleX;
+			bubbleY = bubbleY < -virtualHeightHalf ? -virtualHeightHalf : bubbleY;
+
+			//TODO: Bubble bigger then screen
+			batch.draw(bubbleTexture, bubbleX, bubbleY);
+
+			//			batch.draw(bubbleTexture, rotatedRightTopX - zeroX + currentLook.getX(), rotatedRightTopY - zeroY
+			//					+ currentLook.getY());
+			//			batch.draw(bubbleTexture, rotatedRightBottomX - zeroX + currentLook.getX(), rotatedRightBottomY - zeroY
+			//					+ currentLook.getY());
+			//			batch.draw(bubbleTexture, rotatedLeftBottomX - zeroX + currentLook.getX(), rotatedLeftBottomY - zeroY
+			//					+ currentLook.getY());
+			//			batch.draw(bubbleTexture, rotatedLeftTopX - zeroX + currentLook.getX(), rotatedLeftTopY - zeroY
+			//					+ currentLook.getY());
+		}
+		batch.end();
 	}
 
 	private LookData createWhiteBackgroundLookData() {

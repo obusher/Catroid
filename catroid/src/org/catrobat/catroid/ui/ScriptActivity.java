@@ -145,6 +145,7 @@ public class ScriptActivity extends BaseActivity {
 
 		setupActionBar();
 		setupBottomBar();
+		setContextInCertainBricks();
 
 		buttonAdd = (ImageButton) findViewById(R.id.button_add);
 		updateHandleAddButtonClickListener();
@@ -165,6 +166,9 @@ public class ScriptActivity extends BaseActivity {
 		final ActionBar actionBar = getActionBar();
 		//actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(true);
+
+		String currentSprite = null;
+
 		try {
 			Sprite sprite = ProjectManager.getInstance().getCurrentSprite();
 			if (sprite != null) {
