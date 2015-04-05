@@ -32,14 +32,14 @@ public class IfOnEdgeBounceAction extends TemporalAction {
 
 	@Override
 	protected void update(float percent) {
-		float width = sprite.look.getWidthInUserInterfaceDimensionUnit();
-		float height = sprite.look.getHeightInUserInterfaceDimensionUnit();
-		float xPosition = sprite.look.getXInUserInterfaceDimensionUnit();
-		float yPosition = sprite.look.getYInUserInterfaceDimensionUnit();
+		double width = sprite.look.getWidthInUserInterfaceDimensionUnit();
+		double height = sprite.look.getHeightInUserInterfaceDimensionUnit();
+		double xPosition = sprite.look.getXInUserInterfaceDimensionUnit();
+		double yPosition = sprite.look.getYInUserInterfaceDimensionUnit();
 
 		int virtualScreenWidth = ProjectManager.getInstance().getCurrentProject().getXmlHeader().virtualScreenWidth / 2;
 		int virtualScreenHeight = ProjectManager.getInstance().getCurrentProject().getXmlHeader().virtualScreenHeight / 2;
-		float newDirection = sprite.look.getDirectionInUserInterfaceDimensionUnit();
+		double newDirection = sprite.look.getDirectionInUserInterfaceDimensionUnit();
 
 		if (xPosition < -virtualScreenWidth + width / 2) {
 			if (isLookingLeft(newDirection)) {
@@ -55,12 +55,12 @@ public class IfOnEdgeBounceAction extends TemporalAction {
 
 		if (yPosition < -virtualScreenHeight + height / 2) {
 			if (isLookingDown(newDirection)) {
-				newDirection = 180f - newDirection;
+				newDirection = 180 - newDirection;
 			}
 			yPosition = -virtualScreenHeight + (height / 2);
 		} else if (yPosition > virtualScreenHeight - height / 2) {
 			if (isLookingUp(newDirection)) {
-				newDirection = 180f - newDirection;
+				newDirection = 180 - newDirection;
 			}
 			yPosition = virtualScreenHeight - (height / 2);
 		}
@@ -69,20 +69,20 @@ public class IfOnEdgeBounceAction extends TemporalAction {
 		sprite.look.setPositionInUserInterfaceDimensionUnit(xPosition, yPosition);
 	}
 
-	private boolean isLookingUp(float direction) {
-		return (direction > -90f && direction < 90f);
+	private boolean isLookingUp(double direction) {
+		return (direction > -90 && direction < 90);
 	}
 
-	private boolean isLookingDown(float direction) {
-		return (direction > 90f || direction < -90f);
+	private boolean isLookingDown(double direction) {
+		return (direction > 90 || direction < -90);
 	}
 
-	private boolean isLookingLeft(float direction) {
-		return (direction > -180f && direction < 0f);
+	private boolean isLookingLeft(double direction) {
+		return (direction > -180 && direction < 0);
 	}
 
-	private boolean isLookingRight(float direction) {
-		return (direction > 0f && direction < 180f);
+	private boolean isLookingRight(double direction) {
+		return (direction > 0 && direction < 180);
 	}
 
 	public void setSprite(Sprite sprite) {

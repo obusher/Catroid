@@ -46,10 +46,10 @@ public class PointToAction extends TemporalAction {
 			pointedSprite = this.sprite;
 		}
 
-		float spriteXPosition = sprite.look.getXInUserInterfaceDimensionUnit();
-		float spriteYPosition = sprite.look.getYInUserInterfaceDimensionUnit();
-		float pointedSpriteXPosition = pointedSprite.look.getXInUserInterfaceDimensionUnit();
-		float pointedSpriteYPosition = pointedSprite.look.getYInUserInterfaceDimensionUnit();
+		double spriteXPosition = sprite.look.getXInUserInterfaceDimensionUnit();
+		double spriteYPosition = sprite.look.getYInUserInterfaceDimensionUnit();
+		double pointedSpriteXPosition = pointedSprite.look.getXInUserInterfaceDimensionUnit();
+		double pointedSpriteYPosition = pointedSprite.look.getYInUserInterfaceDimensionUnit();
 
 		double rotationDegrees;
 		if (spriteXPosition == pointedSpriteXPosition && spriteYPosition == pointedSpriteYPosition) {
@@ -73,7 +73,7 @@ public class PointToAction extends TemporalAction {
 			rotationDegrees = (90f - Math.toDegrees(Math.atan2(pointedSpriteYPosition - spriteYPosition,
 					pointedSpriteXPosition - spriteXPosition)));
 		}
-		sprite.look.setDirectionInUserInterfaceDimensionUnit((float) rotationDegrees);
+		sprite.look.setDirectionInUserInterfaceDimensionUnit(rotationDegrees);
 	}
 
 	public void setSprite(Sprite sprite) {

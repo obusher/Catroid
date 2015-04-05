@@ -666,25 +666,25 @@ public class FormulaElement implements Serializable {
 		Object returnValue = 0d;
 		switch (sensor) {
 			case OBJECT_BRIGHTNESS:
-				returnValue = (double) sprite.look.getBrightnessInUserInterfaceDimensionUnit();
+				returnValue = sprite.look.getBrightnessInUserInterfaceDimensionUnit();
 				break;
 			case OBJECT_TRANSPARENCY:
-				returnValue = (double) sprite.look.getTransparencyInUserInterfaceDimensionUnit();
+				returnValue = sprite.look.getTransparencyInUserInterfaceDimensionUnit();
 				break;
 			case OBJECT_LAYER:
 				returnValue = (double) sprite.look.getZIndex();
 				break;
 			case OBJECT_ROTATION:
-				returnValue = (double) sprite.look.getDirectionInUserInterfaceDimensionUnit();
+				returnValue = sprite.look.getDirectionInUserInterfaceDimensionUnit();
 				break;
 			case OBJECT_SIZE:
-				returnValue = (double) sprite.look.getSizeInUserInterfaceDimensionUnit();
+				returnValue = sprite.look.getSizeInUserInterfaceDimensionUnit();
 				break;
 			case OBJECT_X:
-				returnValue = (double) sprite.look.getXInUserInterfaceDimensionUnit();
+				returnValue = sprite.look.getXInUserInterfaceDimensionUnit();
 				break;
 			case OBJECT_Y:
-				returnValue = (double) sprite.look.getYInUserInterfaceDimensionUnit();
+				returnValue = sprite.look.getYInUserInterfaceDimensionUnit();
 				break;
 		}
 		return returnValue;

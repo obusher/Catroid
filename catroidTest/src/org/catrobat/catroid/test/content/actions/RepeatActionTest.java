@@ -224,7 +224,7 @@ public class RepeatActionTest extends InstrumentationTestCase {
 		testWithFormula(notANumber, testSprite.look.getYInUserInterfaceDimensionUnit());
 	}
 
-	private void testWithFormula(Formula formula, Float expected) {
+	private void testWithFormula(Formula formula, Double expected) {
 		RepeatBrick repeatBrick = new RepeatBrick(formula);
 		LoopEndBrick loopEndBrick = new LoopEndBrick(repeatBrick);
 		repeatBrick.setLoopEndBrick(loopEndBrick);

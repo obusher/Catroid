@@ -102,8 +102,8 @@ public class StageDialogTest extends BaseActivityInstrumentationTestCase<MainMen
 	}
 
 	public void testPauseOnBackButton() {
-		float defaultScale = 100.0f;
-		float newScale = 50.0f;
+		double defaultScale = 100.0d;
+		double newScale = 50.0d;
 
 		Project project = new Project(getActivity(), testProject);
 		Sprite sprite = new Sprite("testSprite");

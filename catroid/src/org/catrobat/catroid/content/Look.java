@@ -37,9 +37,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 
 import org.catrobat.catroid.common.LookData;
+import org.catrobat.catroid.formulaeditor.Sensors;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 public class Look extends Image {
 	private static final float DEGREE_UI_OFFSET = 90.0f;
@@ -56,6 +58,8 @@ public class Look extends Image {
 	private boolean allActionsAreFinished = false;
 	private BrightnessContrastShader shader;
 
+	private LinkedHashMap<String, Double> floatDoubleAdapter = new LinkedHashMap<String, Double>(6);
+
 	public Look(Sprite sprite) {
 		this.sprite = sprite;
 		setBounds(0f, 0f, 0f, 0f);
@@ -63,6 +67,15 @@ public class Look extends Image {
 		setScale(1f, 1f);
 		setRotation(0f);
 		setTouchable(Touchable.enabled);
+
+		floatDoubleAdapter.put(Sensors.OBJECT_X.name(), 0d);
+		floatDoubleAdapter.put(Sensors.OBJECT_Y.name(), 0d);
+		floatDoubleAdapter.put(Sensors.OBJECT_BRIGHTNESS.name(), 100d);
+		floatDoubleAdapter.put(Sensors.OBJECT_TRANSPARENCY.name(), 0d);
+		floatDoubleAdapter.put(Sensors.OBJECT_SIZE.name(), 100d);
+		floatDoubleAdapter.put(Sensors.OBJECT_ROTATION.name(), 90d);
+
+
 		this.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -78,6 +91,7 @@ public class Look extends Image {
 				return false;
 			}
 		});
+
 
 		this.addListener(new BroadcastListener() {
 			@Override
@@ -245,82 +259,83 @@ public class Look extends Image {
 		whenParallelAction = action;
 	}
 
-	public float getXInUserInterfaceDimensionUnit() {
-		return getX() + getWidth() / 2f;
+	public double getXInUserInterfaceDimensionUnit() {
+		return floatDoubleAdapter.get(Sensors.OBJECT_X.name());
 	}
 
-	public void setXInUserInterfaceDimensionUnit(float x) {
-		setX(x - getWidth() / 2f);
+	public void setXInUserInterfaceDimensionUnit(double x) {
+		floatDoubleAdapter.put(Sensors.OBJECT_X.name(), x );
+		setX((float) x - getWidth() / 2f);
 	}
 
-	public float getYInUserInterfaceDimensionUnit() {
-		return getY() + getHeight() / 2f;
+	public double getYInUserInterfaceDimensionUnit() {
+		return floatDoubleAdapter.get(Sensors.OBJECT_Y.name());
 	}
 
-	public void setYInUserInterfaceDimensionUnit(float y) {
-		setY(y - getHeight() / 2f);
+	public void setYInUserInterfaceDimensionUnit(double y) {
+		floatDoubleAdapter.put(Sensors.OBJECT_Y.name(), y );
+		setY((float) y - getHeight() / 2f);
 	}
 
-	public void setPositionInUserInterfaceDimensionUnit(float x, float y) {
+	public void setPositionInUserInterfaceDimensionUnit(double x, double y) {
 		setXInUserInterfaceDimensionUnit(x);
 		setYInUserInterfaceDimensionUnit(y);
 	}
 
-	public void changeXInUserInterfaceDimensionUnit(float changeX) {
-		setX(getX() + changeX);
+	public void changeXInUserInterfaceDimensionUnit(double changeX) {
+		double newChangeX = floatDoubleAdapter.get(Sensors.OBJECT_X.name()) + changeX;
+		floatDoubleAdapter.put(Sensors.OBJECT_X.name(), newChangeX);
+		setX(getX() + (float) changeX);
 	}
 
-	public void changeYInUserInterfaceDimensionUnit(float changeY) {
-		setY(getY() + changeY);
+	public void changeYInUserInterfaceDimensionUnit(double changeY) {
+		double newChangeY = floatDoubleAdapter.get(Sensors.OBJECT_X.name()) + changeY;
+		floatDoubleAdapter.put(Sensors.OBJECT_X.name(), newChangeY);
+		setY(getY() + (float) changeY);
 	}
 
-	public float getWidthInUserInterfaceDimensionUnit() {
+	public double getWidthInUserInterfaceDimensionUnit() {
 		return getWidth() * getSizeInUserInterfaceDimensionUnit() / 100f;
 	}
 
-	public float getHeightInUserInterfaceDimensionUnit() {
+	public double getHeightInUserInterfaceDimensionUnit() {
 		return getHeight() * getSizeInUserInterfaceDimensionUnit() / 100f;
 	}
 
-	public float getDirectionInUserInterfaceDimensionUnit() {
-		float direction = (getRotation() + DEGREE_UI_OFFSET) % 360;
-		if (direction < 0) {
-			direction += 360f;
-		}
-		direction = 180f - direction;
-
-		return direction;
+	public double getDirectionInUserInterfaceDimensionUnit() {
+		return floatDoubleAdapter.get(Sensors.OBJECT_ROTATION.name());
 	}
 
-	public void setDirectionInUserInterfaceDimensionUnit(float degrees) {
-		setRotation((-degrees + DEGREE_UI_OFFSET) % 360);
+	public void setDirectionInUserInterfaceDimensionUnit(double degrees) {
+		floatDoubleAdapter.put(Sensors.OBJECT_ROTATION.name(), degrees);
+		setRotation(((float) -degrees + DEGREE_UI_OFFSET) % 360);
 	}
 
 	public void changeDirectionInUserInterfaceDimensionUnit(float changeDegrees) {
 		setRotation((getRotation() - changeDegrees) % 360);
 	}
 
-	public float getSizeInUserInterfaceDimensionUnit() {
-		return getScaleX() * 100f;
+	public double getSizeInUserInterfaceDimensionUnit() {
+		return floatDoubleAdapter.get(Sensors.OBJECT_SIZE.name());
 	}
 
-	public void setSizeInUserInterfaceDimensionUnit(float percent) {
+	public void setSizeInUserInterfaceDimensionUnit(double percent) {
 		if (percent < 0) {
 			percent = 0;
 		}
-
-		setScale(percent / 100f, percent / 100f);
+		floatDoubleAdapter.put(Sensors.OBJECT_SIZE.name(), percent);
+		setScale((float) percent / 100f, (float) percent / 100f);
 	}
 
-	public void changeSizeInUserInterfaceDimensionUnit(float changePercent) {
+	public void changeSizeInUserInterfaceDimensionUnit(double changePercent) {
 		setSizeInUserInterfaceDimensionUnit(getSizeInUserInterfaceDimensionUnit() + changePercent);
 	}
 
-	public float getTransparencyInUserInterfaceDimensionUnit() {
-		return (1f - alpha) * 100f;
+	public double getTransparencyInUserInterfaceDimensionUnit() {
+		return floatDoubleAdapter.get(Sensors.OBJECT_TRANSPARENCY.name());
 	}
 
-	public void setTransparencyInUserInterfaceDimensionUnit(float percent) {
+	public void setTransparencyInUserInterfaceDimensionUnit(double percent) {
 		if (percent < 0f) {
 			percent = 0f;
 		} else if (percent >= 100f) {
@@ -331,31 +346,31 @@ public class Look extends Image {
 		if (percent < 100.0f) {
 			setVisible(true);
 		}
-
-		alpha = (100f - percent) / 100f;
+		floatDoubleAdapter.put(Sensors.OBJECT_TRANSPARENCY.name(), percent);
+		alpha = (100f - (float) percent) / 100f;
 	}
 
-	public void changeTransparencyInUserInterfaceDimensionUnit(float changePercent) {
+	public void changeTransparencyInUserInterfaceDimensionUnit(double changePercent) {
 		setTransparencyInUserInterfaceDimensionUnit(getTransparencyInUserInterfaceDimensionUnit() + changePercent);
 	}
 
-	public float getBrightnessInUserInterfaceDimensionUnit() {
-		return brightness * 100f;
+	public double getBrightnessInUserInterfaceDimensionUnit() {
+		return floatDoubleAdapter.get(Sensors.OBJECT_BRIGHTNESS.name());
 	}
 
-	public void setBrightnessInUserInterfaceDimensionUnit(float percent) {
+	public void setBrightnessInUserInterfaceDimensionUnit(double percent) {
 		if (percent < 0f) {
 			percent = 0f;
 		} else if (percent > 200f) {
 			percent = 200f;
 		}
-
-		brightness = percent / 100f;
+		floatDoubleAdapter.put(Sensors.OBJECT_BRIGHTNESS.name(), percent );
+		brightness = (float) percent / 100f;
 		brightnessChanged = true;
 		imageChanged = true;
 	}
 
-	public void changeBrightnessInUserInterfaceDimensionUnit(float changePercent) {
+	public void changeBrightnessInUserInterfaceDimensionUnit(double changePercent) {
 		setBrightnessInUserInterfaceDimensionUnit(getBrightnessInUserInterfaceDimensionUnit() + changePercent);
 	}
 

@@ -100,8 +100,8 @@ public class UserBrickTest extends AndroidTestCase {
 		SequenceAction sequence = new SequenceAction();
 		brick.addActionToSequence(sprite, sequence);
 
-		float x = sprite.look.getXInUserInterfaceDimensionUnit();
-		float y = sprite.look.getYInUserInterfaceDimensionUnit();
+		double x = sprite.look.getXInUserInterfaceDimensionUnit();
+		double y = sprite.look.getYInUserInterfaceDimensionUnit();
 
 		assertEquals("Unexpected initial sprite x position: " + x, 0f, x);
 		assertEquals("Unexpected initial sprite y position: " + y, 0f, y);
@@ -172,8 +172,8 @@ public class UserBrickTest extends AndroidTestCase {
 		SequenceAction sequence = new SequenceAction();
 		startScript.run(sprite, sequence);
 
-		float x = sprite.look.getXInUserInterfaceDimensionUnit();
-		float y = sprite.look.getYInUserInterfaceDimensionUnit();
+		double x = sprite.look.getXInUserInterfaceDimensionUnit();
+		double y = sprite.look.getYInUserInterfaceDimensionUnit();
 
 		assertEquals("Unexpected initial sprite x position: ", 0f, x);
 		assertEquals("Unexpected initial sprite y position: ", 0f, y);

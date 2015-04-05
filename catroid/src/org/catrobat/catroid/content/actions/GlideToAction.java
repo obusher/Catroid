@@ -32,10 +32,10 @@ import org.catrobat.catroid.formulaeditor.InterpretationException;
 
 public class GlideToAction extends TemporalAction {
 
-	private float startX;
-	private float startY;
-	private float currentX;
-	private float currentY;
+	private double startX;
+	private double startY;
+	private double currentX;
+	private double currentY;
 	private Formula endX;
 	private Formula endY;
 	private Sprite sprite;
@@ -92,8 +92,8 @@ public class GlideToAction extends TemporalAction {
 
 	@Override
 	protected void update(float percent) {
-		float deltaX = sprite.look.getXInUserInterfaceDimensionUnit() - currentX;
-		float deltaY = sprite.look.getYInUserInterfaceDimensionUnit() - currentY;
+		double deltaX = sprite.look.getXInUserInterfaceDimensionUnit() - currentX;
+		double deltaY = sprite.look.getYInUserInterfaceDimensionUnit() - currentY;
 		if ((-0.1f > deltaX || deltaX > 0.1f) || (-0.1f > deltaY || deltaY > 0.1f)) {
 			restart = true;
 			setDuration(getDuration() - getTime());
