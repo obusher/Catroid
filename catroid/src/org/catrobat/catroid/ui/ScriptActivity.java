@@ -165,7 +165,6 @@ public class ScriptActivity extends BaseActivity {
 		final ActionBar actionBar = getActionBar();
 		//actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(true);
-
 		String currentSprite = null;
 
 		try {

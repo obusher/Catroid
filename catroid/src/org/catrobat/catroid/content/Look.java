@@ -421,11 +421,16 @@ public class Look extends Image {
 	}
 
 	public void showSpeechBubble(byte[] speechBubble) {
-		StageListener.bubble.put(this, new Pixmap(speechBubble, 0, speechBubble.length));
-
+		Pixmap previousBubble = StageListener.bubble.put(this, new Pixmap(speechBubble, 0, speechBubble.length));
+		if (previousBubble != null){
+			// TODO: n-Bubbles for each Look.
+			previousBubble.dispose();
+		}
+		Log.d("showSpeechBubble()", " :" + StageListener.bubble.size());
 	}
 
 	public void hideSpeechBubble() {
-		StageListener.bubble.remove(this);
+		StageListener.bubble.remove(this).dispose();
+		Log.d("hideSpeechBubble()", " :" + StageListener.bubble.size());
 	}
 }

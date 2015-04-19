@@ -250,6 +250,8 @@ public class StageListener implements ApplicationListener {
 
 		ProjectManager.getInstance().getCurrentProject().getDataContainer().resetAllDataObjects();
 
+		resetBubbles();
+
 		reloadProject = true;
 	}
 
@@ -808,4 +810,12 @@ public class StageListener implements ApplicationListener {
 	public void removeActor(Look look) {
 		look.remove();
 	}
+
+	private void resetBubbles(){
+		for ( Pixmap stageBubble : bubble.values()){
+			stageBubble.dispose();
+		}
+		bubble.clear();
+	}
+
 }
