@@ -45,7 +45,11 @@ import org.catrobat.catroid.camera.CameraManager;
 import org.catrobat.catroid.common.CatroidService;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.ServiceProvider;
+import org.catrobat.catroid.content.Project;
+import org.catrobat.catroid.content.Script;
+import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
+import org.catrobat.catroid.content.bricks.BubbleBrick;
 import org.catrobat.catroid.devices.raspberrypi.RaspberryPiService;
 import org.catrobat.catroid.drone.DroneInitializer;
 import org.catrobat.catroid.drone.DroneServiceWrapper;
@@ -59,6 +63,7 @@ import org.catrobat.catroid.utils.ToastUtil;
 import org.catrobat.catroid.utils.VibratorUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -92,6 +97,7 @@ public class PreStageActivity extends BaseActivity {
 		}
 
 		setContentView(R.layout.activity_prestage);
+		setContextInBubbleBricks();
 
 		int requiredResources = ProjectManager.getInstance().getCurrentProject().getRequiredResources();
 		requiredResourceCounter = Integer.bitCount(requiredResources);
@@ -509,6 +515,26 @@ public class PreStageActivity extends BaseActivity {
 			// TODO: resourceFailed() & startActivityForResult(), if behaviour needed
 		}
 		resourceInitialized();
+	}
+
+	protected void setContextInBubbleBricks() {
+		Project currentProject = ProjectManager.getInstance().getCurrentProject();
+
+		if (currentProject != null) {
+			ArrayList<Sprite> spriteList = (ArrayList<Sprite>) currentProject.getSpriteList();
+
+			for (Sprite sprite : spriteList) {
+				for (int index = 0; index < sprite.getNumberOfScripts(); index++) {
+					Script script = sprite.getScript(index);
+					for (Brick brick : script.getBrickList()) {
+						if (brick instanceof BubbleBrick) {
+							((BubbleBrick) brick).setContext(getApplicationContext());
+						}
+					}
+				}
+			}
+		}
+
 	}
 }
 

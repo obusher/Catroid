@@ -89,7 +89,6 @@ public class ProjectActivity extends BaseActivity {
 			setReturnToProjectsList(true);
 		}
 
-		setContextInCertainBricks();
 	}
 
 	@Override

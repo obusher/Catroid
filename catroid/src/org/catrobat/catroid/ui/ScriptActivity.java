@@ -145,7 +145,6 @@ public class ScriptActivity extends BaseActivity {
 
 		setupActionBar();
 		setupBottomBar();
-		setContextInCertainBricks();
 
 		buttonAdd = (ImageButton) findViewById(R.id.button_add);
 		updateHandleAddButtonClickListener();

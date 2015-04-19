@@ -170,7 +170,7 @@ public class BaseActivity extends Activity {
 	public void setTitleActionBar(String titleActionBar) {
 		this.titleActionBar = titleActionBar;
 	}
-
+	
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		MenuItem logout = baseMenu.findItem(R.id.menu_logout);
 		MenuItem login = baseMenu.findItem(R.id.menu_login);
@@ -197,4 +197,5 @@ public class BaseActivity extends Activity {
 			}
 		}
 	}
+
 }

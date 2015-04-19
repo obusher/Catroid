@@ -49,12 +49,12 @@ public class SayForBrick extends BubbleBrick {
 		addAllowedBrickField(BrickField.BUBBLE_DURATION);
 	}
 
-	public SayForBrick(String think, int duration) {
-		initializeBrickFields(new Formula(think), new Formula((duration)));
+	public SayForBrick(String say, int duration) {
+		initializeBrickFields(new Formula(say), new Formula((duration)));
 	}
 
-	public SayForBrick(Formula think, Formula duration) {
-		initializeBrickFields(think, duration);
+	public SayForBrick(Formula say, Formula duration) {
+		initializeBrickFields(say, duration);
 	}
 
 	@Override

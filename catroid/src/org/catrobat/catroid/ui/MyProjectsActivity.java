@@ -51,7 +51,6 @@ public class MyProjectsActivity extends BaseActivity {
 		setUpActionBar();
 
 		BottomBar.hidePlayButton(this);
-		setContextInCertainBricks();
 
 		projectsListFragment = (ProjectsListFragment) getFragmentManager().findFragmentById(
 				R.id.fragment_projects_list);
