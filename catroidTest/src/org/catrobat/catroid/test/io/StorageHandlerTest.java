@@ -302,13 +302,13 @@ public class StorageHandlerTest extends AndroidTestCase {
 
 	// TODO: add XML header validation based on xsd
 
-    private Float interpretFormula(Formula formula, Sprite sprite) {
+    private Double interpretFormula(Formula formula, Sprite sprite) {
         try {
-            return formula.interpretFloat(sprite);
+            return formula.interpretDouble(sprite);
         } catch (InterpretationException interpretationException) {
             Log.d(getClass().getSimpleName(), "Formula interpretation for Formula failed.", interpretationException);
         }
-        return Float.NaN;
+        return Double.NaN;
     }
 
 	public void testGetRequiredResources() {

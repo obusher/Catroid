@@ -138,11 +138,6 @@ public class Formula implements Serializable {
 		}
 	}
 
-	public Float interpretFloat(Sprite sprite) throws InterpretationException{
-		Double returnValue = interpretDouble(sprite);
-		return returnValue.floatValue();
-	}
-
 	public String interpretString(Sprite sprite) throws InterpretationException{
         Object interpretation = formulaTree.interpretRecursive(sprite);
 
@@ -275,7 +270,7 @@ public class Formula implements Serializable {
                 return "ERROR";
             }
 			interpretationResult *= 100;
-			interpretationResult = (double) (Math.round(interpretationResult) / 100f);
+			interpretationResult = (Math.round(interpretationResult) / 100d);
 			return String.valueOf(interpretationResult);
 		}
 	}

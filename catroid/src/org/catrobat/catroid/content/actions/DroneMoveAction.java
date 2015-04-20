@@ -42,14 +42,14 @@ public abstract class DroneMoveAction extends TemporalAction {
 
 	@Override
 	protected void begin() {
-        Float newDuration;
+		Double newDuration;
         try {
-            newDuration = duration == null ? Float.valueOf(DRONE_MOVE_SPEED_STOP) : duration.interpretFloat(sprite);
+            newDuration = duration == null ? Double.valueOf(DRONE_MOVE_SPEED_STOP) : duration.interpretDouble(sprite);
         } catch (InterpretationException interpretationException) {
             Log.d(getClass().getSimpleName(), "Formula interpretation for this specific Brick failed.", interpretationException);
-            newDuration = Float.valueOf(DRONE_MOVE_SPEED_STOP);
+            newDuration = Double.valueOf(DRONE_MOVE_SPEED_STOP);
         }
-        super.setDuration(newDuration);
+        super.setDuration(newDuration.floatValue());
 	}
 	public void setDelay(Formula delay) {
 		this.duration = delay;
@@ -64,14 +64,14 @@ public abstract class DroneMoveAction extends TemporalAction {
 	}
 
 	protected float getPowerNormalized() {
-        Float normalizedPower;
+		Double normalizedPower;
         try {
-            normalizedPower = duration == null ? Float.valueOf(DRONE_MOVE_SPEED_STOP) : powerInPercent.interpretFloat(sprite) / 100;
+            normalizedPower = duration == null ? Double.valueOf(DRONE_MOVE_SPEED_STOP) : powerInPercent.interpretDouble(sprite) / 100d;
         } catch (InterpretationException interpretationException) {
             Log.d(getClass().getSimpleName(), "Formula interpretation for this specific Brick failed.", interpretationException);
-            normalizedPower = Float.valueOf(DRONE_MOVE_SPEED_STOP);
+            normalizedPower = Double.valueOf(DRONE_MOVE_SPEED_STOP);
         }
-        return normalizedPower;
+        return normalizedPower.floatValue();
 	}
 
 	protected DroneControlService getDroneService() {

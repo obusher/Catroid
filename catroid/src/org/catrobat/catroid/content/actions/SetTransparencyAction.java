@@ -38,7 +38,7 @@ public class SetTransparencyAction extends TemporalAction {
 	@Override
 	protected void update(float percent) {
 		try {
-			Float newTransparency = transparency == null ? Float.valueOf(0f) : transparency.interpretFloat(sprite);
+			Double newTransparency = transparency == null ? Double.valueOf(0d) : transparency.interpretDouble(sprite);
 			sprite.look.setTransparencyInUserInterfaceDimensionUnit(newTransparency);
 		} catch (InterpretationException interpretationException) {
 			Log.d(getClass().getSimpleName(), "Formula interpretation for this specific Brick failed.", interpretationException);

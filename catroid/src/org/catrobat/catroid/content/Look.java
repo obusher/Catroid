@@ -311,8 +311,10 @@ public class Look extends Image {
 		setRotation(((float) -degrees + DEGREE_UI_OFFSET) % 360);
 	}
 
-	public void changeDirectionInUserInterfaceDimensionUnit(float changeDegrees) {
-		setRotation((getRotation() - changeDegrees) % 360);
+	public void changeDirectionInUserInterfaceDimensionUnit(double changeDegrees) {
+		double newChangeDegrees = floatDoubleAdapter.get(Sensors.OBJECT_ROTATION.name()) - changeDegrees;
+		floatDoubleAdapter.put(Sensors.OBJECT_ROTATION.name(), newChangeDegrees);
+		setRotation((getRotation() - (float) changeDegrees) % 360);
 	}
 
 	public double getSizeInUserInterfaceDimensionUnit() {

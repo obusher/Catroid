@@ -40,9 +40,9 @@ public class GoNStepsBackAction extends TemporalAction {
 
 	@Override
 	protected void update(float delta) {
-		Float stepsValue;
+		Double stepsValue;
 		try {
-			stepsValue = steps == null ? Float.valueOf(0f) : steps.interpretFloat(sprite);
+			stepsValue = steps == null ? Double.valueOf(0d) : steps.interpretDouble(sprite);
         } catch (InterpretationException interpretationException) {
             Log.d(getClass().getSimpleName(), "Formula interpretation for this specific Brick failed.", interpretationException);
             return;

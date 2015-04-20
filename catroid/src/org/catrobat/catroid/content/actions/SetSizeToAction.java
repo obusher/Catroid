@@ -38,7 +38,7 @@ public class SetSizeToAction extends TemporalAction {
 	@Override
 	protected void update(float delta) {
 		try {
-			Float newSize = size == null ? Float.valueOf(0f) : size.interpretFloat(sprite);
+			Double newSize = size == null ? Double.valueOf(0d) : size.interpretDouble(sprite);
 			sprite.look.setSizeInUserInterfaceDimensionUnit(newSize);
 		} catch (InterpretationException interpretationException) {
 			Log.d(getClass().getSimpleName(), "Formula interpretation for this specific Brick failed.", interpretationException);

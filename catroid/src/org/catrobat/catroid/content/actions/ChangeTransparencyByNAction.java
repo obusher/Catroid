@@ -38,8 +38,8 @@ public class ChangeTransparencyByNAction extends TemporalAction {
 	@Override
 	protected void update(float delta) {
 		try {
-			Float newChangeTransparency = changeTransparency == null ? Float.valueOf(0f) : changeTransparency
-					.interpretFloat(sprite);
+			Double newChangeTransparency = changeTransparency == null ? Double.valueOf(0d) : changeTransparency
+					.interpretDouble(sprite);
 			sprite.look.changeTransparencyInUserInterfaceDimensionUnit(newChangeTransparency);
         } catch (InterpretationException interpretationException) {
             Log.d(getClass().getSimpleName(), "Formula interpretation for this specific Brick failed.", interpretationException);

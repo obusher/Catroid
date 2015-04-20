@@ -39,7 +39,7 @@ public class SoundManager {
 	private static final SoundManager INSTANCE = new SoundManager();
 
 	private final List<MediaPlayer> mediaPlayers = new ArrayList<MediaPlayer>(MAX_MEDIA_PLAYERS);
-	private float volume = 70.0f;
+	private double volume = 70.0d;
 
 	protected SoundManager() {
 	}
@@ -79,21 +79,21 @@ public class SoundManager {
 		return null;
 	}
 
-	public synchronized void setVolume(float volume) {
-		if (volume > 100.0f) {
-			volume = 100.0f;
-		} else if (volume < 0.0f) {
-			volume = 0.0f;
+	public synchronized void setVolume(double volume) {
+		if (volume > 100.0d) {
+			volume = 100.0d;
+		} else if (volume < 0.0d) {
+			volume = 0.0d;
 		}
 
 		this.volume = volume;
-		float volumeScalar = volume * 0.01f;
+		double volumeScalar = volume * 0.01d;
 		for (MediaPlayer mediaPlayer : mediaPlayers) {
-			mediaPlayer.setVolume(volumeScalar, volumeScalar);
+			mediaPlayer.setVolume((float) volumeScalar, (float) volumeScalar);
 		}
 	}
 
-	public synchronized float getVolume() {
+	public synchronized double getVolume() {
 		return this.volume;
 	}
 

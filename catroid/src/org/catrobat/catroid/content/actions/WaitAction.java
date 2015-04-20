@@ -38,8 +38,8 @@ public class WaitAction extends TemporalAction {
 	@Override
 	protected void begin() {
 		try {
-			Float newDuration = duration == null ? Float.valueOf(0f) : duration.interpretFloat(sprite);
-			super.setDuration(newDuration);
+			Double newDuration = duration == null ? Double.valueOf(0d) : duration.interpretDouble(sprite);
+			super.setDuration(newDuration.floatValue());
 		} catch (InterpretationException interpretationException) {
 			Log.d(getClass().getSimpleName(), "Formula interpretation for this specific Brick failed.", interpretationException);
 		}

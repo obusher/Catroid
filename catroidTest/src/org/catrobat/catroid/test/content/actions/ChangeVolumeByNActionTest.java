@@ -46,7 +46,7 @@ public class ChangeVolumeByNActionTest extends InstrumentationTestCase {
 	}
 
 	public void testVolume() {
-		float expectedVolume = SoundManager.getInstance().getVolume();
+		double expectedVolume = SoundManager.getInstance().getVolume();
 
 		expectedVolume += louderValue;
 		Formula louder = new Formula(louderValue);

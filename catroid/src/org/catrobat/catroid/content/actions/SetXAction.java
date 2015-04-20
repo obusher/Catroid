@@ -38,7 +38,7 @@ public class SetXAction extends TemporalAction {
 	@Override
 	protected void update(float delta) {
 		try {
-			Float newX = xPosition == null ? Float.valueOf(0f) : xPosition.interpretFloat(sprite);
+			Double newX = xPosition == null ? Double.valueOf(0d) : xPosition.interpretDouble(sprite);
 			sprite.look.setXInUserInterfaceDimensionUnit(newX);
 		} catch (InterpretationException interpretationException) {
 			Log.d(getClass().getSimpleName(), "Formula interpretation for this specific Brick failed.", interpretationException);

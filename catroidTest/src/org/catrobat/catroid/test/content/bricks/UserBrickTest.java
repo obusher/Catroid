@@ -163,7 +163,7 @@ public class UserBrickTest extends AndroidTestCase {
 			formula.setRoot(new FormulaElement(ElementType.NUMBER, moveValue.toString(), null));
 
 			try {
-				assertEquals("outerBrick.formula.interpretDouble: ", (float) moveValue, formula.interpretFloat(sprite));
+				assertEquals("outerBrick.formula.interpretDouble: ", (float) moveValue, formula.interpretDouble(sprite));
 			} catch (InterpretationException e) {
 				e.printStackTrace();
 			}

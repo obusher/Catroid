@@ -38,8 +38,8 @@ public class ChangeBrightnessByNAction extends TemporalAction {
 	@Override
 	protected void update(float percent) {
 		try {
-			Float newChangeBrightness = changeBrightness == null ? Float.valueOf(0f) : changeBrightness
-					.interpretFloat(sprite);
+			Double newChangeBrightness = changeBrightness == null ? Double.valueOf(0d) : changeBrightness
+					.interpretDouble(sprite);
 			sprite.look.changeBrightnessInUserInterfaceDimensionUnit(newChangeBrightness);
 		} catch (InterpretationException interpretationException) {
             Log.d(getClass().getSimpleName(),"Formula interpretation for this specific Brick failed." , interpretationException);

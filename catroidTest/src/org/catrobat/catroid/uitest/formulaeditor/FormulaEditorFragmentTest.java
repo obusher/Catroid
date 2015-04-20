@@ -333,7 +333,7 @@ public class FormulaEditorFragmentTest extends BaseActivityInstrumentationTestCa
 
 		formula = placeAtBrick.getFormulaWithBrickField(Brick.BrickField.Y_POSITION);
 		try {
-			float newYValue = formula.interpretFloat(sprite);
+			double newYValue = formula.interpretDouble(sprite);
 			assertTrue("Wrong text in field", newYValue >= -0.5f && newYValue <= 1f);
 		} catch (InterpretationException interpretationException) {
 			fail("Wrong text in field.");
@@ -358,7 +358,7 @@ public class FormulaEditorFragmentTest extends BaseActivityInstrumentationTestCa
 
 		Formula formula = placeAtBrick.getFormulaWithBrickField(Brick.BrickField.X_POSITION);
 		try {
-			float value = formula.interpretFloat(sprite);
+			double value = formula.interpretDouble(sprite);
 			assertTrue("random() interpretation of float parameter is wrong: " + newXFormula + " value=" + value,
 					1 <= value && value <= 9.9f && (Math.abs(value) - (int) Math.abs(value)) > 0);
 		} catch (InterpretationException interpretationException) {
@@ -382,7 +382,7 @@ public class FormulaEditorFragmentTest extends BaseActivityInstrumentationTestCa
 		Formula anotherFormula = placeAtBrick.getFormulaWithBrickField(Brick.BrickField.Y_POSITION);
 
 		try {
-			float anotherValue = anotherFormula.interpretFloat(sprite);
+			double anotherValue = anotherFormula.interpretDouble(sprite);
 			assertTrue("random() interpretation of float parameter is wrong: " + newYFormula + " anotherValue="
 							+ anotherValue,
 					1 <= anotherValue && anotherValue <= 7.0f
@@ -412,7 +412,7 @@ public class FormulaEditorFragmentTest extends BaseActivityInstrumentationTestCa
 		Formula formula = placeAtBrick.getFormulaWithBrickField(Brick.BrickField.X_POSITION);
 
 		try {
-			float value = formula.interpretFloat(sprite);
+			double value = formula.interpretDouble(sprite);
 			assertTrue("random() interpretation of integer parameters is wrong: " + newXFormula + " anotherValue="
 					+ value, (value == 1 || value == 2 || value == 3));
 			assertEquals("random() interpretation of integer parameters is wrong: " + newXFormula + " anotherValue="
@@ -435,7 +435,7 @@ public class FormulaEditorFragmentTest extends BaseActivityInstrumentationTestCa
 
 		Formula anotherFormula = placeAtBrick.getFormulaWithBrickField(Brick.BrickField.Y_POSITION);
 		try {
-			float anotherValue = anotherFormula.interpretFloat(sprite);
+			double anotherValue = anotherFormula.interpretDouble(sprite);
 			assertTrue("random() interpretation of integer parameters is wrong: " + newYFormula + " anotherValue="
 					+ anotherValue, (anotherValue == 1 || anotherValue == 2 || anotherValue == 3 || anotherValue == 4));
 			assertEquals("random() interpretation of integer parameters is wrong: " + newYFormula + " anotherValue="

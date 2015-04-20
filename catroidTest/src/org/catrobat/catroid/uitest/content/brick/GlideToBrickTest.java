@@ -90,7 +90,7 @@ public class GlideToBrickTest extends BaseActivityInstrumentationTestCase<MainMe
 
 		Formula formula = glideToBrick.getFormulaWithBrickField(Brick.BrickField.DURATION_IN_SECONDS);
         try{
-            float temp = formula.interpretFloat(sprite);
+            double temp = formula.interpretDouble(sprite);
             assertEquals("Wrong duration input in Glide to brick", Math.round(duration * 1000), Math.round(temp * 1000));
         }catch (InterpretationException interpretationException){
             fail("Wrong duration input in Glide to brick");

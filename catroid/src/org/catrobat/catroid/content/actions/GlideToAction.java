@@ -40,41 +40,41 @@ public class GlideToAction extends TemporalAction {
 	private Formula endY;
 	private Sprite sprite;
 	private Formula duration;
-	private float endXValue;
-	private float endYValue;
+	private double endXValue;
+	private double endYValue;
 
 	private boolean restart = false;
 
 	@Override
 	protected void begin() {
-		Float durationInterpretation;
-		Float endXInterpretation = 0f;
-		Float endYInterpretation = 0f;
+		Double durationInterpretation;
+		Double endXInterpretation = 0d;
+		Double endYInterpretation = 0d;
 
 		try {
-			durationInterpretation = duration == null ? Float.valueOf(0f) : duration.interpretFloat(sprite);
+			durationInterpretation = duration == null ? Float.valueOf(0f) : duration.interpretDouble(sprite);
         } catch (InterpretationException interpretationException) {
-            durationInterpretation = 0f;
+            durationInterpretation = 0d;
             Log.d(getClass().getSimpleName(),"Formula interpretation for this specific Brick failed." , interpretationException);
         }
 
 		try {
-			endXInterpretation = endX == null ? Float.valueOf(0f) : endX.interpretFloat(sprite);
+			endXInterpretation = endX == null ? Float.valueOf(0f) : endX.interpretDouble(sprite);
         } catch (InterpretationException interpretationException) {
-            durationInterpretation = 0f;
+            durationInterpretation = 0d;
             Log.d(getClass().getSimpleName(),"Formula interpretation for this specific Brick failed." , interpretationException);
         }
 
 		try {
-			endYInterpretation = endY == null ? Float.valueOf(0f) : endY.interpretFloat(sprite);
+			endYInterpretation = endY == null ? Float.valueOf(0f) : endY.interpretDouble(sprite);
         } catch (InterpretationException interpretationException) {
-            durationInterpretation = 0f;
+            durationInterpretation = 0d;
             Log.d(getClass().getSimpleName(),"Formula interpretation for this specific Brick failed." , interpretationException);
         }
 
 		if (!restart) {
 			if (duration != null) {
-				super.setDuration(durationInterpretation);
+				super.setDuration(durationInterpretation.floatValue());
 			}
 			endXValue = endXInterpretation;
 			endYValue = endYInterpretation;

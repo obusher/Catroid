@@ -230,7 +230,7 @@ public class SpriteTest extends AndroidTestCase {
 			formula.setRoot(new FormulaElement(elementType, value, null));
 			if (expectedValue != null) {
 				try {
-					assertEquals("Unexpected value from interpretFloat: ", expectedValue, formula.interpretFloat(sprite));
+					assertEquals("Unexpected value from interpretDouble: ", expectedValue, formula.interpretDouble(sprite));
 				} catch (InterpretationException interpretationException) {
 					Log.e(TAG, "InterpretationException!", interpretationException);
 				}
