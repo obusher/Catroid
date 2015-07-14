@@ -657,6 +657,7 @@ public class StageListener implements ApplicationListener {
 			final Look currentLook = iterator.next();
 			final Texture bubbleTexture = new Texture(bubble.get(currentLook));
 
+			// Scaling of bubble
 			final float lookScaleX = currentLook.getScaleX();
 			final float lookScaleY = currentLook.getScaleY();
 			float scaleOffsetX = 1;
@@ -694,8 +695,16 @@ public class StageListener implements ApplicationListener {
 			float bubbleX = rightTopX;
 			float bubbleY = rightTopY;
 
+			// Look on different position
+			bubbleX += currentLook.getXInUserInterfaceDimensionUnit();
+			bubbleY += currentLook.getYInUserInterfaceDimensionUnit();
+
+
+
+			//Rotation of look with bubble
 			final float lookRotation = currentLook.getRotation();
 
+			// DEBUG OUTPUT Rotation
 			//			if (!(lookRotation == this.oldRotation)) {
 			//				Log.i("info", "ImageWidth: " + currentLook.getImageWidth());
 			//				Log.i("info", "ImageHeight: " + currentLook.getImageHeight());
@@ -764,6 +773,12 @@ public class StageListener implements ApplicationListener {
 			//					+ currentLook.getY());
 			//			batch.draw(bubbleTexture, rotatedLeftTopX - zeroX + currentLook.getX(), rotatedLeftTopY - zeroY
 			//					+ currentLook.getY());
+
+
+
+			//TODO: Gliding position update
+			//TODO: Show/Hide look -> hide bubble
+			//TODO: brightness, transpaerncy, clear graphics of look/bubble ??
 		}
 		batch.end();
 	}
