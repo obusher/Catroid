@@ -647,14 +647,19 @@ public class StageListener implements ApplicationListener {
 	}
 
 	public void drawBubbleOnStage() {
-
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
 		Iterator<Look> iterator = bubble.keySet().iterator();
-
 		while (iterator.hasNext()) {
+
 			final Look currentLook = iterator.next();
+
+			// Hide/show mechanics
+			if(!currentLook.visible){
+				continue;
+			}
+
 			final Texture bubbleTexture = new Texture(bubble.get(currentLook));
 
 			// Scaling of bubble
@@ -695,9 +700,7 @@ public class StageListener implements ApplicationListener {
 			float bubbleX = rightTopX;
 			float bubbleY = rightTopY;
 
-			// Look on different position
-			bubbleX += currentLook.getXInUserInterfaceDimensionUnit();
-			bubbleY += currentLook.getYInUserInterfaceDimensionUnit();
+
 
 
 
@@ -752,7 +755,12 @@ public class StageListener implements ApplicationListener {
 					bubbleY = rotatedLeftTopY - zeroY + currentLook.getY();
 				}
 			}
-			//TODO: Bubble outside of screen
+
+			// Look on different position
+			bubbleX += currentLook.getXInUserInterfaceDimensionUnit();
+			bubbleY += currentLook.getYInUserInterfaceDimensionUnit();
+
+			//Bubble outside of screen
 
 			final int bubbleHeight = bubbleTexture.getHeight();
 			final int bubbleWidth = bubbleTexture.getWidth();
@@ -776,9 +784,12 @@ public class StageListener implements ApplicationListener {
 
 
 
-			//TODO: Gliding position update
-			//TODO: Show/Hide look -> hide bubble
+			//TODO: Gliding position update: In Scratch after BB finishes glide action gets executed.
+
+
+
 			//TODO: brightness, transpaerncy, clear graphics of look/bubble ??
+
 		}
 		batch.end();
 	}

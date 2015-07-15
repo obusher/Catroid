@@ -430,7 +430,11 @@ public class Look extends Image {
 	}
 
 	public void hideSpeechBubble() {
-		StageListener.bubble.remove(this).dispose();
+		Pixmap bubbleToRemove = StageListener.bubble.remove(this);
+		if(bubbleToRemove != null){
+			bubbleToRemove.dispose();
+		}
+
 		Log.d("hideSpeechBubble()", " :" + StageListener.bubble.size());
 	}
 }
