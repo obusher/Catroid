@@ -31,7 +31,7 @@ import org.catrobat.catroid.formulaeditor.InterpretationException;
 public class SayForBrickAction extends TemporalAction {
 
 	private Sprite sprite;
-	private byte[] speechBubble;
+	private byte[] bubble;
 
 	@Override
 	protected void update(float percent) {
@@ -39,12 +39,12 @@ public class SayForBrickAction extends TemporalAction {
 
 	@Override
 	protected void begin() {
-		sprite.look.showSpeechBubble(speechBubble);
+		sprite.look.showBubbles(bubble);
 	}
 
 	@Override
 	protected void end() {
-		sprite.look.hideSpeechBubble();
+		sprite.look.hideBubbles();
 	}
 
 	public void setDurationInSeconds(Formula durationInSeconds) {
@@ -59,7 +59,7 @@ public class SayForBrickAction extends TemporalAction {
 		this.sprite = sprite;
 	}
 
-	public void setText(byte[] speechBubble) {
-		this.speechBubble = speechBubble;
+	public void setText(byte[] bubble) {
+		this.bubble = bubble;
 	}
 }

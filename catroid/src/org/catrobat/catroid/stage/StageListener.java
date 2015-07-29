@@ -250,7 +250,7 @@ public class StageListener implements ApplicationListener {
 
 		ProjectManager.getInstance().getCurrentProject().getDataContainer().resetAllDataObjects();
 
-		resetBubbles();
+		disposeBubbles();
 
 		reloadProject = true;
 	}
@@ -770,9 +770,11 @@ public class StageListener implements ApplicationListener {
 			bubbleX = bubbleX < -virtualWidthHalf ? -virtualWidthHalf : bubbleX;
 			bubbleY = bubbleY < -virtualHeightHalf ? -virtualHeightHalf : bubbleY;
 
-			//TODO: Bubble bigger then screen
+
+
 			batch.draw(bubbleTexture, bubbleX, bubbleY);
 
+			//TODO: Bubble bigger then screen
 			//			batch.draw(bubbleTexture, rotatedRightTopX - zeroX + currentLook.getX(), rotatedRightTopY - zeroY
 			//					+ currentLook.getY());
 			//			batch.draw(bubbleTexture, rotatedRightBottomX - zeroX + currentLook.getX(), rotatedRightBottomY - zeroY
@@ -782,11 +784,9 @@ public class StageListener implements ApplicationListener {
 			//			batch.draw(bubbleTexture, rotatedLeftTopX - zeroX + currentLook.getX(), rotatedLeftTopY - zeroY
 			//					+ currentLook.getY());
 
-
+			// TODO: Mirroring of bubble.
 
 			//TODO: Gliding position update: In Scratch after BB finishes glide action gets executed.
-
-
 
 			//TODO: brightness, transpaerncy, clear graphics of look/bubble ??
 
@@ -837,9 +837,15 @@ public class StageListener implements ApplicationListener {
 		look.remove();
 	}
 
-	private void resetBubbles(){
-		for ( Pixmap stageBubble : bubble.values()){
+	private void resetBubbles() {
+		for (Pixmap stageBubble : bubble.values()) {
 			stageBubble.dispose();
+		}
+	}
+
+	public void disposeBubbles() {
+		for ( Pixmap bubbleOnStage : bubble.values()){
+			bubbleOnStage.dispose();
 		}
 		bubble.clear();
 	}

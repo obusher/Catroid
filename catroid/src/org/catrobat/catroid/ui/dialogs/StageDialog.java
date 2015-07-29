@@ -31,6 +31,8 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.BroadcastSequenceMap;
 import org.catrobat.catroid.common.BroadcastWaitSequenceMap;
@@ -108,6 +110,7 @@ public class StageDialog extends Dialog implements View.OnClickListener {
 
 	@Override
 	public void onBackPressed() {
+		stageListener.disposeBubbles();
 		clearBroadcastMaps();
 		dismiss();
 		stageActivity.exit();
