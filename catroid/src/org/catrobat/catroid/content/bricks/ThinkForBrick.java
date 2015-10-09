@@ -23,6 +23,9 @@
 package org.catrobat.catroid.content.bricks;
 
 import android.content.Context;
+import android.graphics.NinePatch;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.NinePatchDrawable;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
@@ -125,11 +128,17 @@ public class ThinkForBrick extends BubbleBrick {
 
 	@Override
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
-		// TODO set think bubble
+		// TODO set think bubbles
 		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
 		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
-		updateBubbleByteArrayFromDrawingCache();
-		sequence.addAction(ExtendedActions.say(sprite, bubbleByteArray, getFormulaWithBrickField(BrickField.BUBBLE_DURATION)));
+		rightBubble = bubbleWithTextFromDrawingCache();
+
+		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
+		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText("leftBubble :O");
+		byte[] leftBubble = bubbleWithTextFromDrawingCache();
+
+		sequence.addAction(ExtendedActions.say(sprite, rightBubble, leftBubble, getFormulaWithBrickField(BrickField
+				.BUBBLE_DURATION)));
 		return null;
 	}
 }

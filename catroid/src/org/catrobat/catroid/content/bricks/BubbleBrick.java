@@ -47,7 +47,8 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 	protected transient View prototypeView;
 	protected transient View bubble;
 	protected transient Context context;
-	protected transient byte[] bubbleByteArray;
+	protected transient byte[] rightBubble;
+	protected transient byte[] leftBubble;
 
 	protected void initializeBrickFields(Formula think, Formula duration) {
 		addAllowedBrickField(BrickField.BUBBLE_TEXT);
@@ -103,7 +104,7 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 		return builder.toString();
 	}
 
-	protected void updateBubbleByteArrayFromDrawingCache() {
+	protected byte[] bubbleWithTextFromDrawingCache() {
 		bubble.setDrawingCacheEnabled(true);
 		bubble.measure(MeasureSpec.makeMeasureSpec(ScreenValues.SCREEN_WIDTH - BOUNDARY_PIXEL, MeasureSpec.AT_MOST),
 				MeasureSpec.makeMeasureSpec(ScreenValues.SCREEN_HEIGHT - BOUNDARY_PIXEL, MeasureSpec.AT_MOST));
@@ -112,14 +113,15 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 		Bitmap bitmap = bubble.getDrawingCache();
 		ByteArrayOutputStream stream = new ByteArrayOutputStream(bitmap.getWidth() * bitmap.getHeight());
 		bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-		bubbleByteArray = stream.toByteArray();
+		byte[] bubbleWithText = stream.toByteArray();
 		try {
 			stream.close();
 		} catch (IOException iOException) {
-			Log.d(BubbleBrick.class.getSimpleName(), "Can not close bubble byte array stream!", iOException);
+			Log.d(BubbleBrick.class.getSimpleName(), "Can not close bubbles byte array stream!", iOException);
 		}
 
 		bubble.setDrawingCacheEnabled(false);
+		return bubbleWithText;
 	}
 
 	public void setContext(Context applicationContext) {

@@ -420,26 +420,37 @@ public class Look extends Image {
 		}
 	}
 
-	public void showBubbles(byte[] bubble) {
-		Pixmap currentBubble = StageListener.bubble.get(this);
+	public void showBubbles(byte[] rightBubble, byte[] leftBubble) {
+		ArrayList bubbles = StageListener.bubbles.get(this);
 
-		if (currentBubble == null) {
-			StageListener.bubble.put(this, new Pixmap(bubble, 0, bubble.length));
+		if (bubbles == null) {
+			ArrayList<Pixmap> lookBubbles = new ArrayList();
+			lookBubbles.add(0, new Pixmap(rightBubble, 0, rightBubble.length));
+			lookBubbles.add(1, new Pixmap(leftBubble, 0, leftBubble.length));
+			StageListener.bubbles.put(this, lookBubbles);
 			return;
 		}
 
-		StageListener.bubble.remove(this).dispose();
-		StageListener.bubble.put(this, new Pixmap(bubble, 0, bubble.length));
+		ArrayList<Pixmap> bubblesToRemove = StageListener.bubbles.remove(this);
+		bubblesToRemove.get(0).dispose();
+		bubblesToRemove.get(1).dispose();
 
-		Log.d("showBubbles()", " :" + StageListener.bubble.size());
+		ArrayList<Pixmap> lookBubbles = new ArrayList();
+		lookBubbles.add(0, new Pixmap(rightBubble, 0, rightBubble.length));
+		lookBubbles.add(1, new Pixmap(leftBubble, 0, leftBubble.length));
+		StageListener.bubbles.put(this, lookBubbles);
+
+		Log.d("showBubbles()", " :" + StageListener.bubbles.size());
 	}
 
 	public void hideBubbles() {
-		Pixmap bubbleToRemove = StageListener.bubble.remove(this);
-		if (bubbleToRemove != null) {
-			bubbleToRemove.dispose();
+
+		ArrayList<Pixmap> bubblesToRemove = StageListener.bubbles.remove(this);
+		if (bubblesToRemove != null) {
+			bubblesToRemove.get(0).dispose();
+			bubblesToRemove.get(1).dispose();
 		}
 
-		Log.d("hideBubbles()", " :" + StageListener.bubble.size());
+		Log.d("hideBubbles()", " :" + StageListener.bubbles.size());
 	}
 }

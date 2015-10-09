@@ -113,8 +113,14 @@ public class SayBrick extends BubbleBrick {
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
 		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
 		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
-		updateBubbleByteArrayFromDrawingCache();
-		sequence.addAction(ExtendedActions.say(sprite, bubbleByteArray, getFormulaWithBrickField(BrickField.BUBBLE_DURATION)));
+		rightBubble = bubbleWithTextFromDrawingCache();
+
+		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
+		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText("leftBubble :O");
+		byte[] leftBubble = bubbleWithTextFromDrawingCache();
+
+		sequence.addAction(ExtendedActions.say(sprite, rightBubble, leftBubble, getFormulaWithBrickField(BrickField
+				.BUBBLE_DURATION)));
 		return null;
 	}
 

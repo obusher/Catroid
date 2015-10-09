@@ -495,11 +495,10 @@ public class ExtendedActions extends Actions {
 		return action(DroneTakeoffAndLandAction.class);
 	}
 
-	public static SayForBrickAction say(Sprite sprite, byte[] bubble, Formula duration) {
-
+	public static SayForBrickAction say(Sprite sprite, byte[] rightBubble, byte[] leftBubble, Formula duration) {
 		SayForBrickAction action = action(SayForBrickAction.class);
 		action.setSprite(sprite);
-		action.setText(bubble);
+		action.setText(rightBubble, leftBubble);
 		action.setDurationInSeconds(duration);
 		return action;
 	}

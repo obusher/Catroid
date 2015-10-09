@@ -31,7 +31,8 @@ import org.catrobat.catroid.formulaeditor.InterpretationException;
 public class SayForBrickAction extends TemporalAction {
 
 	private Sprite sprite;
-	private byte[] bubble;
+	private byte[] rightBubble;
+	private byte[] leftBubble;
 
 	@Override
 	protected void update(float percent) {
@@ -39,7 +40,7 @@ public class SayForBrickAction extends TemporalAction {
 
 	@Override
 	protected void begin() {
-		sprite.look.showBubbles(bubble);
+		sprite.look.showBubbles(rightBubble, leftBubble);
 	}
 
 	@Override
@@ -59,7 +60,8 @@ public class SayForBrickAction extends TemporalAction {
 		this.sprite = sprite;
 	}
 
-	public void setText(byte[] bubble) {
-		this.bubble = bubble;
+	public void setText(byte[] rightBubble, byte[] leftBubble) {
+		this.rightBubble = rightBubble;
+		this.leftBubble = leftBubble;
 	}
 }

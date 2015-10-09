@@ -148,7 +148,7 @@ public class StageListener implements ApplicationListener {
 	public int maximizeViewPortWidth = 0;
 
 	public boolean axesOn = false;
-	public static Map<Look, Pixmap> bubble = new HashMap<Look, Pixmap>();
+	public static Map<Look, ArrayList<Pixmap>> bubbles = new HashMap<Look, ArrayList<Pixmap>>();
 
 	private byte[] thumbnail;
 	private LookData whiteBackground = null;
@@ -412,7 +412,7 @@ public class StageListener implements ApplicationListener {
 			drawAxes();
 		}
 
-		if (bubble.size() > 0 && !finished) {
+		if (bubbles.size() > 0 && !finished) {
 			drawBubbleOnStage();
 		}
 
@@ -650,19 +650,18 @@ public class StageListener implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
-		Iterator<Look> iterator = bubble.keySet().iterator();
+		Iterator<Look> iterator = bubbles.keySet().iterator();
 		while (iterator.hasNext()) {
 
 			final Look currentLook = iterator.next();
+			Texture bubbleTexture = new Texture(bubbles.get(currentLook).get(0));
 
 			// Hide/show mechanics
 			if(!currentLook.visible){
 				continue;
 			}
 
-			final Texture bubbleTexture = new Texture(bubble.get(currentLook));
-
-			// Scaling of bubble
+			// Scaling of bubbles
 			final float lookScaleX = currentLook.getScaleX();
 			final float lookScaleY = currentLook.getScaleY();
 			float scaleOffsetX = 1;
@@ -704,7 +703,7 @@ public class StageListener implements ApplicationListener {
 
 
 
-			//Rotation of look with bubble
+			//Rotation of look with bubbles
 			final float lookRotation = currentLook.getRotation();
 
 			// DEBUG OUTPUT Rotation
@@ -770,10 +769,6 @@ public class StageListener implements ApplicationListener {
 			bubbleX = bubbleX < -virtualWidthHalf ? -virtualWidthHalf : bubbleX;
 			bubbleY = bubbleY < -virtualHeightHalf ? -virtualHeightHalf : bubbleY;
 
-
-
-			batch.draw(bubbleTexture, bubbleX, bubbleY);
-
 			//TODO: Bubble bigger then screen
 			//			batch.draw(bubbleTexture, rotatedRightTopX - zeroX + currentLook.getX(), rotatedRightTopY - zeroY
 			//					+ currentLook.getY());
@@ -784,12 +779,17 @@ public class StageListener implements ApplicationListener {
 			//			batch.draw(bubbleTexture, rotatedLeftTopX - zeroX + currentLook.getX(), rotatedLeftTopY - zeroY
 			//					+ currentLook.getY());
 
-			// TODO: Mirroring of bubble.
+			// TODO: Mirroring of bubbles.
+
+
+			bubbleTexture = currentLook.getX() + currentLook.getWidth() / 2 <= bubbleX + bubbleTexture.getWidth() / 2 ?
+					bubbleTexture : new Texture(bubbles.get(currentLook).get(1));
 
 			//TODO: Gliding position update: In Scratch after BB finishes glide action gets executed.
 
-			//TODO: brightness, transpaerncy, clear graphics of look/bubble ??
+			//TODO: brightness, transpaerncy, clear graphics of look/bubbles ??
 
+			batch.draw(bubbleTexture, bubbleX, bubbleY);
 		}
 		batch.end();
 	}
@@ -837,17 +837,12 @@ public class StageListener implements ApplicationListener {
 		look.remove();
 	}
 
-	private void resetBubbles() {
-		for (Pixmap stageBubble : bubble.values()) {
-			stageBubble.dispose();
+	public void disposeBubbles(){
+		for ( ArrayList<Pixmap> bubbleOnStage : bubbles.values()){
+			bubbleOnStage.get(0).dispose();
+			bubbleOnStage.get(1).dispose();
 		}
-	}
-
-	public void disposeBubbles() {
-		for ( Pixmap bubbleOnStage : bubble.values()){
-			bubbleOnStage.dispose();
-		}
-		bubble.clear();
+		bubbles.clear();
 	}
 
 }
