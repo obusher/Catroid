@@ -31,6 +31,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 import org.catrobat.catroid.ProjectManager;
@@ -39,6 +41,8 @@ import org.catrobat.catroid.common.BrickValues;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.actions.ExtendedActions;
+import org.catrobat.catroid.content.actions.GlideToAction;
+import org.catrobat.catroid.content.actions.SayBrickAction;
 import org.catrobat.catroid.formulaeditor.Formula;
 import org.catrobat.catroid.formulaeditor.InterpretationException;
 import org.catrobat.catroid.ui.fragment.FormulaEditorFragment;
@@ -227,9 +231,24 @@ public class GlideToBrick extends FormulaBrick {
 
 	@Override
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
-		sequence.addAction(ExtendedActions.glideTo(sprite, getFormulaWithBrickField(BrickField.X_DESTINATION),
+
+		GlideToAction glide = ExtendedActions.glideTo(sprite,
+				getFormulaWithBrickField(BrickField.X_DESTINATION),
 				getFormulaWithBrickField(BrickField.Y_DESTINATION),
-				getFormulaWithBrickField(BrickField.DURATION_IN_SECONDS)));
+				getFormulaWithBrickField(BrickField.DURATION_IN_SECONDS));
+
+		if(sequence.getActions().size > 0) {
+			Action lastAction = sequence.getActions().peek();
+			if(lastAction instanceof SayBrickAction){
+				ParallelAction parallelAction = new ParallelAction();
+				parallelAction.addAction(glide);
+				parallelAction.addAction(sequence.getActions().pop());
+				sequence.addAction(parallelAction);
+				return null;
+			}
+		}
+
+		sequence.addAction(glide);
 		return null;
 	}
 

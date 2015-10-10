@@ -495,7 +495,7 @@ public class ExtendedActions extends Actions {
 		return action(DroneTakeoffAndLandAction.class);
 	}
 
-	public static SayForBrickAction say(Sprite sprite, byte[] rightBubble, byte[] leftBubble, Formula duration) {
+	public static SayForBrickAction sayFor(Sprite sprite, byte[] rightBubble, byte[] leftBubble, Formula duration) {
 		SayForBrickAction action = action(SayForBrickAction.class);
 		action.setSprite(sprite);
 		action.setText(rightBubble, leftBubble);
@@ -503,6 +503,14 @@ public class ExtendedActions extends Actions {
 		return action;
 	}
 
+	public static SayBrickAction say(Sprite sprite, byte[] rightBubble, byte[] leftBubble, Formula duration) {
+		SayBrickAction action = action(SayBrickAction.class);
+		action.setSprite(sprite);
+		action.setText(rightBubble, leftBubble);
+		action.setDurationInSeconds(duration);
+		return action;
+	}
+	
 	public static TemporalAction droneMoveUp(Sprite sprite, Formula seconds, Formula powerInPercent) {
 		DroneMoveUpAction action = action(DroneMoveUpAction.class);
 		action.setSprite(sprite);

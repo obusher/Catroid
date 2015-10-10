@@ -119,8 +119,8 @@ public class SayBrick extends BubbleBrick {
 		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText("leftBubble :O");
 		byte[] leftBubble = bubbleWithTextFromDrawingCache();
 
-		sequence.addAction(ExtendedActions.say(sprite, rightBubble, leftBubble, getFormulaWithBrickField(BrickField
-				.BUBBLE_DURATION)));
+		sequence.addAction(ExtendedActions.say(sprite, rightBubble, leftBubble,
+				getFormulaWithBrickField(BrickField.BUBBLE_DURATION)));
 		return null;
 	}
 
