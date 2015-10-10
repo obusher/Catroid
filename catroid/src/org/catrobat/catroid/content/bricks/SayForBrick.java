@@ -130,8 +130,9 @@ public class SayForBrick extends BubbleBrick {
 		rightBubble = bubbleWithTextFromDrawingCache();
 
 		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
-		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText("leftBubble :O");
-		byte[] leftBubble = bubbleWithTextFromDrawingCache();
+		bubble.setBackgroundResource(R.drawable.bubble_left);
+		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
+		leftBubble = bubbleWithTextFromDrawingCache();
 
 		sequence.addAction(ExtendedActions.sayFor(sprite, rightBubble, leftBubble, getFormulaWithBrickField(BrickField
 				.BUBBLE_DURATION)));

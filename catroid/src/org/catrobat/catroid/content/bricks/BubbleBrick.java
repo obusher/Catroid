@@ -42,7 +42,6 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 
 	protected static final int STRING_OFFSET = 20;
 	protected static final int BOUNDARY_PIXEL = 30;
-	protected static final int BUBBLE_DURATION = 2;
 
 	protected transient View prototypeView;
 	protected transient View bubble;
