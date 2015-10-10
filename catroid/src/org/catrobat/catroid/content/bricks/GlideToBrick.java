@@ -231,24 +231,10 @@ public class GlideToBrick extends FormulaBrick {
 
 	@Override
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
-
-		GlideToAction glide = ExtendedActions.glideTo(sprite,
+		sequence.addAction(ExtendedActions.glideTo(sprite,
 				getFormulaWithBrickField(BrickField.X_DESTINATION),
 				getFormulaWithBrickField(BrickField.Y_DESTINATION),
-				getFormulaWithBrickField(BrickField.DURATION_IN_SECONDS));
-
-		if(sequence.getActions().size > 0) {
-			Action lastAction = sequence.getActions().peek();
-			if(lastAction instanceof SayBrickAction){
-				ParallelAction parallelAction = new ParallelAction();
-				parallelAction.addAction(glide);
-				parallelAction.addAction(sequence.getActions().pop());
-				sequence.addAction(parallelAction);
-				return null;
-			}
-		}
-
-		sequence.addAction(glide);
+				getFormulaWithBrickField(BrickField.DURATION_IN_SECONDS)));
 		return null;
 	}
 
