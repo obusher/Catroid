@@ -49,11 +49,11 @@ public class ThinkBrick extends BubbleBrick {
 	}
 
 	public ThinkBrick(String think) {
-		initializeBrickFields(new Formula(think), new Formula((BUBBLE_DURATION)));
+		initializeBrickFields(new Formula(think), new Formula((Integer.MAX_VALUE)));
 	}
 
 	public ThinkBrick(Formula think) {
-		initializeBrickFields(think, new Formula((BUBBLE_DURATION)));
+		initializeBrickFields(think, new Formula((Integer.MAX_VALUE)));
 	}
 
 	@Override

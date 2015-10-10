@@ -510,7 +510,7 @@ public class ExtendedActions extends Actions {
 		action.setDurationInSeconds(duration);
 		return action;
 	}
-	
+
 	public static TemporalAction droneMoveUp(Sprite sprite, Formula seconds, Formula powerInPercent) {
 		DroneMoveUpAction action = action(DroneMoveUpAction.class);
 		action.setSprite(sprite);

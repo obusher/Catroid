@@ -45,7 +45,6 @@ public class SayBrickAction extends TemporalAction {
 
 	@Override
 	protected void end() {
-		sprite.look.hideBubbles();
 	}
 
 	public void setDurationInSeconds(Formula durationInSeconds) {
