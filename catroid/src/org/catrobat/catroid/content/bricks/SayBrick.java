@@ -33,6 +33,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.BrickValues;
+import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.actions.ExtendedActions;
 import org.catrobat.catroid.formulaeditor.Formula;
@@ -123,6 +124,10 @@ public class SayBrick extends BubbleBrick {
 		sequence.addAction(ExtendedActions.say(sprite, rightBubble, leftBubble,
 				getFormulaWithBrickField(BrickField.BUBBLE_DURATION)));
 		return null;
+	}
+
+	@Override
+	public void updateReferenceAfterMerge(Project into, Project from) {
 	}
 
 }
