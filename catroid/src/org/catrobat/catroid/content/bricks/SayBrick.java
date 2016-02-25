@@ -117,7 +117,7 @@ public class SayBrick extends BubbleBrick {
 		rightBubble = bubbleWithTextFromDrawingCache();
 
 		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
-		bubble.setBackgroundResource(R.drawable.bubble_left);
+		bubble.setBackgroundResource(R.drawable.bubble_say_left);
 		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
 		leftBubble = bubbleWithTextFromDrawingCache();
 

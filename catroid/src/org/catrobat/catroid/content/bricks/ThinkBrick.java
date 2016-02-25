@@ -113,11 +113,12 @@ public class ThinkBrick extends BubbleBrick {
 	@Override
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
 		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
+		bubble.setBackgroundResource(R.drawable.bubble_think_right);
 		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
 		rightBubble = bubbleWithTextFromDrawingCache();
 
 		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
-		bubble.setBackgroundResource(R.drawable.bubble_left);
+		bubble.setBackgroundResource(R.drawable.bubble_think_left);
 		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
 		leftBubble = bubbleWithTextFromDrawingCache();
 

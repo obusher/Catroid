@@ -24,6 +24,6 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/bubble_edit_text"
-    android:background="@drawable/bubble_right" xmlns:tools="http://schemas.android.com/tools" tools:ignore="Overdraw"
+    android:background="@drawable/bubble_say_right" xmlns:tools="http://schemas.android.com/tools" tools:ignore="Overdraw"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" />
