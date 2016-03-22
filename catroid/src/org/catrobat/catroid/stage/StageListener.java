@@ -538,6 +538,7 @@ public class StageListener implements ApplicationListener {
 		font.dispose();
 		axes.dispose();
 		disposeTextures();
+		disposeBubbles();
 	}
 
 	public boolean makeManualScreenshot() {
@@ -650,11 +651,15 @@ public class StageListener implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
+
+
 		Iterator<Look> iterator = bubbles.keySet().iterator();
 		while (iterator.hasNext()) {
 
 			final Look currentLook = iterator.next();
-			Texture bubbleTexture = new Texture(bubbles.get(currentLook).get(0));
+			Texture bubbleTextureRight = new Texture(bubbles.get(currentLook).get(0));
+			Texture bubbleTextureLeft = new Texture(bubbles.get(currentLook).get(1));
+			Texture bubbleTexture = bubbleTextureRight;
 
 			// Hide/show mechanics
 			if(!currentLook.visible){
@@ -783,7 +788,7 @@ public class StageListener implements ApplicationListener {
 
 
 			bubbleTexture = currentLook.getX() + currentLook.getWidth() / 2 <= bubbleX + bubbleTexture.getWidth() / 2 ?
-					bubbleTexture : new Texture(bubbles.get(currentLook).get(1));
+					bubbleTextureRight : bubbleTextureLeft;
 
 			//TODO: Gliding position update: In Scratch after BB finishes glide action gets executed.
 

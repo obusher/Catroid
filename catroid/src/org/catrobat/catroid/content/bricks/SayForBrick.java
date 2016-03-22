@@ -126,14 +126,13 @@ public class SayForBrick extends BubbleBrick {
 
 	@Override
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
-		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
-		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
-		rightBubble = bubbleWithTextFromDrawingCache();
+		bubbleRightView.setBackgroundResource(R.drawable.bubble_say_right);
+		((TextView) bubbleRightView.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
+		rightBubble = bubbleWithTextFromDrawingCache(bubbleRightView);
 
-		bubble = View.inflate(this.context, R.layout.bubble_speech_new, null);
-		bubble.setBackgroundResource(R.drawable.bubble_say_left);
-		((TextView) bubble.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
-		leftBubble = bubbleWithTextFromDrawingCache();
+		bubbleLeftView.setBackgroundResource(R.drawable.bubble_say_left);
+		((TextView) bubbleLeftView.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
+		leftBubble = bubbleWithTextFromDrawingCache(bubbleLeftView);
 
 		sequence.addAction(ExtendedActions.sayFor(sprite, rightBubble, leftBubble, getFormulaWithBrickField(BrickField
 				.BUBBLE_DURATION)));

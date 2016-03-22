@@ -22,7 +22,6 @@
  */
 package org.catrobat.catroid.content.bricks;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
@@ -44,8 +43,8 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 	protected static final int BOUNDARY_PIXEL = 30;
 
 	protected transient View prototypeView;
-	protected transient View bubble;
-	protected transient Context context;
+	protected transient View bubbleLeftView;
+	protected transient View bubbleRightView;
 	protected transient byte[] rightBubble;
 	protected transient byte[] leftBubble;
 
@@ -103,7 +102,7 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 		return builder.toString();
 	}
 
-	protected byte[] bubbleWithTextFromDrawingCache() {
+	protected byte[] bubbleWithTextFromDrawingCache(View bubble) {
 		bubble.setDrawingCacheEnabled(true);
 		bubble.measure(MeasureSpec.makeMeasureSpec(ScreenValues.SCREEN_WIDTH - BOUNDARY_PIXEL, MeasureSpec.AT_MOST),
 				MeasureSpec.makeMeasureSpec(ScreenValues.SCREEN_HEIGHT - BOUNDARY_PIXEL, MeasureSpec.AT_MOST));
@@ -120,11 +119,13 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 		}
 
 		bubble.setDrawingCacheEnabled(false);
+		bitmap.recycle();
 		return bubbleWithText;
 	}
 
-	public void setContext(Context applicationContext) {
-		this.context = applicationContext;
+	public void setBubbleLayout(View bubbleLeft, View bubbleRight) {
+		this.bubbleLeftView = bubbleLeft;
+		this.bubbleRightView = bubbleRight;
 	}
 
 	@Override

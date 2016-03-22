@@ -35,6 +35,7 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
 import android.util.Log;
+import android.view.View;
 
 import org.catrobat.catroid.CatroidApplication;
 import org.catrobat.catroid.ProjectManager;
@@ -97,7 +98,7 @@ public class PreStageActivity extends BaseActivity {
 		}
 
 		setContentView(R.layout.activity_prestage);
-		setContextInBubbleBricks();
+		setBubbleLayoutInBubbleBricks();
 
 		int requiredResources = ProjectManager.getInstance().getCurrentProject().getRequiredResources();
 		requiredResourceCounter = Integer.bitCount(requiredResources);
@@ -517,7 +518,7 @@ public class PreStageActivity extends BaseActivity {
 		resourceInitialized();
 	}
 
-	protected void setContextInBubbleBricks() {
+	protected void setBubbleLayoutInBubbleBricks() {
 		Project currentProject = ProjectManager.getInstance().getCurrentProject();
 
 		if (currentProject != null) {
@@ -528,7 +529,9 @@ public class PreStageActivity extends BaseActivity {
 					Script script = sprite.getScript(index);
 					for (Brick brick : script.getBrickList()) {
 						if (brick instanceof BubbleBrick) {
-							((BubbleBrick) brick).setContext(getApplicationContext());
+							((BubbleBrick) brick).setBubbleLayout(View.inflate(getApplicationContext(), R.layout
+									.bubble_speech_new, null), View.inflate(getApplicationContext(), R.layout
+									.bubble_speech_new, null));
 						}
 					}
 				}

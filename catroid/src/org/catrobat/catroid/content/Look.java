@@ -220,7 +220,7 @@ public class Look extends Image {
 				shader.setBrightness(brightness);
 				brightnessChanged = false;
 			}
-			Log.i("info", "checkImageChanged");
+
 			TextureRegion region = lookData.getTextureRegion();
 			TextureRegionDrawable drawable = new TextureRegionDrawable(region);
 			setDrawable(drawable);
