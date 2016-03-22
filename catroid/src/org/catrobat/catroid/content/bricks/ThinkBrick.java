@@ -23,6 +23,7 @@
 package org.catrobat.catroid.content.bricks;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
@@ -114,10 +115,12 @@ public class ThinkBrick extends BubbleBrick {
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
 		bubbleRightView.setBackgroundResource(R.drawable.bubble_think_right);
 		((TextView) bubbleRightView.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
+		((TextView) bubbleLeftView.findViewById(R.id.bubble_edit_text)).setTextColor(Color.BLACK);
 		rightBubble = bubbleWithTextFromDrawingCache(bubbleRightView);
 
 		bubbleLeftView.setBackgroundResource(R.drawable.bubble_think_left);
 		((TextView) bubbleLeftView.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
+		((TextView) bubbleLeftView.findViewById(R.id.bubble_edit_text)).setTextColor(Color.BLACK);
 		leftBubble = bubbleWithTextFromDrawingCache(bubbleLeftView);
 
 		sequence.addAction(ExtendedActions.say(sprite, rightBubble, leftBubble,

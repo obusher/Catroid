@@ -82,7 +82,7 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 
 	protected String getNormalizedText(Sprite sprite) {
 		Object interpretation = getFormulaWithBrickField(BrickField.BUBBLE_TEXT).interpretObject(sprite);
-		String text = "";
+		String text = "Error";
 
 		if (interpretation instanceof String){
 			text = (String) interpretation;

@@ -23,6 +23,8 @@
 package org.catrobat.catroid.content.bricks;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
@@ -114,10 +116,12 @@ public class SayBrick extends BubbleBrick {
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
 		bubbleLeftView.setBackgroundResource(R.drawable.bubble_say_right);
 		((TextView) bubbleLeftView.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
+		((TextView) bubbleLeftView.findViewById(R.id.bubble_edit_text)).setTextColor(Color.BLACK);
 		rightBubble = bubbleWithTextFromDrawingCache(bubbleLeftView);
 
 		bubbleRightView.setBackgroundResource(R.drawable.bubble_say_left);
 		((TextView) bubbleRightView.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
+		((TextView) bubbleRightView.findViewById(R.id.bubble_edit_text)).setTextColor(Color.BLACK);
 		leftBubble = bubbleWithTextFromDrawingCache(bubbleRightView);
 
 		sequence.addAction(ExtendedActions.say(sprite, rightBubble, leftBubble,
