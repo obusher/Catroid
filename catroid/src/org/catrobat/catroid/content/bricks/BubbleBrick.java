@@ -41,12 +41,14 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 
 	protected static final int STRING_OFFSET = 20;
 	protected static final int BOUNDARY_PIXEL = 30;
+	protected static final StringBuilder STRING_BUILDER = new StringBuilder();
 
 	protected transient View prototypeView;
 	protected transient View bubbleLeftView;
 	protected transient View bubbleRightView;
 	protected transient byte[] rightBubble;
 	protected transient byte[] leftBubble;
+
 
 	protected void initializeBrickFields(Formula think, Formula duration) {
 		addAllowedBrickField(BrickField.BUBBLE_TEXT);
@@ -90,16 +92,16 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 			text = String.valueOf(interpretation);
 		}
 
-		StringBuilder builder = new StringBuilder();
+		STRING_BUILDER.delete(0, STRING_BUILDER.length());
 
 		for (int index = 0; index < text.length(); index++) {
 			if (index % STRING_OFFSET == 0) {
-				builder.append('\n');
+				STRING_BUILDER.append('\n');
 			}
 			//TODO: max size of text.
-			builder.append(text.charAt(index));
+			STRING_BUILDER.append(text.charAt(index));
 		}
-		return builder.toString();
+		return STRING_BUILDER.toString();
 	}
 
 	protected byte[] bubbleWithTextFromDrawingCache(View bubble) {
@@ -120,6 +122,7 @@ public abstract class BubbleBrick extends FormulaBrick implements OnClickListene
 
 		bubble.setDrawingCacheEnabled(false);
 		bitmap.recycle();
+		bitmap = null;
 		return bubbleWithText;
 	}
 

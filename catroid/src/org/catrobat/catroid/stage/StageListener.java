@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -149,6 +150,7 @@ public class StageListener implements ApplicationListener {
 
 	public boolean axesOn = false;
 	public static Map<Look, ArrayList<Pixmap>> bubbles = new HashMap<Look, ArrayList<Pixmap>>();
+	private Map<Look, ArrayList<Texture>> bubblesTextures = new HashMap<Look, ArrayList<Texture>>();
 
 	private byte[] thumbnail;
 	private LookData whiteBackground = null;
@@ -251,6 +253,7 @@ public class StageListener implements ApplicationListener {
 		ProjectManager.getInstance().getCurrentProject().getDataContainer().resetAllDataObjects();
 
 		disposeBubbles();
+
 
 		reloadProject = true;
 	}
@@ -651,6 +654,14 @@ public class StageListener implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 
+		if(bubblesTextures != null){
+			for (ArrayList<Texture> texture : bubblesTextures.values()) {
+				texture.get(0).dispose();
+				texture.get(1).dispose();
+				texture.clear();
+			}
+			bubblesTextures.clear();
+		}
 
 
 		Iterator<Look> iterator = bubbles.keySet().iterator();
@@ -660,6 +671,12 @@ public class StageListener implements ApplicationListener {
 			Texture bubbleTextureRight = new Texture(bubbles.get(currentLook).get(0));
 			Texture bubbleTextureLeft = new Texture(bubbles.get(currentLook).get(1));
 			Texture bubbleTexture = bubbleTextureRight;
+
+			ArrayList<Texture> textures = new ArrayList<>();
+			textures.add(0, bubbleTextureRight);
+			textures.add(1, bubbleTextureLeft);
+			bubblesTextures.put(currentLook, textures);
+
 
 			// Hide/show mechanics
 			if(!currentLook.visible){
@@ -846,6 +863,7 @@ public class StageListener implements ApplicationListener {
 		for ( ArrayList<Pixmap> bubbleOnStage : bubbles.values()){
 			bubbleOnStage.get(0).dispose();
 			bubbleOnStage.get(1).dispose();
+			bubbleOnStage.clear();
 		}
 		bubbles.clear();
 	}

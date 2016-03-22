@@ -431,11 +431,11 @@ public class Look extends Image {
 			return;
 		}
 
-		ArrayList<Pixmap> bubblesToRemove = StageListener.bubbles.remove(this);
-		bubblesToRemove.get(0).dispose();
-		bubblesToRemove.get(1).dispose();
+		ArrayList<Pixmap> lookBubbles = StageListener.bubbles.remove(this);
+		lookBubbles.get(0).dispose();
+		lookBubbles.get(1).dispose();
+		lookBubbles.clear();
 
-		ArrayList<Pixmap> lookBubbles = new ArrayList();
 		lookBubbles.add(0, new Pixmap(rightBubble, 0, rightBubble.length));
 		lookBubbles.add(1, new Pixmap(leftBubble, 0, leftBubble.length));
 		StageListener.bubbles.put(this, lookBubbles);
@@ -449,6 +449,7 @@ public class Look extends Image {
 		if (bubblesToRemove != null) {
 			bubblesToRemove.get(0).dispose();
 			bubblesToRemove.get(1).dispose();
+			bubblesToRemove.clear();
 		}
 
 		Log.d("hideBubbles()", " :" + StageListener.bubbles.size());

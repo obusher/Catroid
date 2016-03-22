@@ -115,7 +115,7 @@ public class ThinkBrick extends BubbleBrick {
 	public List<SequenceAction> addActionToSequence(Sprite sprite, SequenceAction sequence) {
 		bubbleRightView.setBackgroundResource(R.drawable.bubble_think_right);
 		((TextView) bubbleRightView.findViewById(R.id.bubble_edit_text)).setText(getNormalizedText(sprite));
-		((TextView) bubbleLeftView.findViewById(R.id.bubble_edit_text)).setTextColor(Color.BLACK);
+		((TextView) bubbleRightView.findViewById(R.id.bubble_edit_text)).setTextColor(Color.BLACK);
 		rightBubble = bubbleWithTextFromDrawingCache(bubbleRightView);
 
 		bubbleLeftView.setBackgroundResource(R.drawable.bubble_think_left);
